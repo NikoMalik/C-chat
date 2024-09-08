@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <errno.h>
+#include "types.h"
+
 void error(char *msg)
 {
 	perror(msg);
@@ -36,7 +38,6 @@ int createIPV4Addr(struct sockaddr_in *address, char *ip, int port)
 	}
 	return 0;
 }
-
 int createTCPSocket(int domain, int type, int protocol)
 {
 	int socketFD = socket(domain, type, protocol);
