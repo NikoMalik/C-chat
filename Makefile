@@ -1,20 +1,30 @@
 include config.mk
 
 SRC = client.c server.c
-OBJ = ${SRC:.c=.o}
+OBJ = $(SRC:.c=.o)
 
-all: client server
+CC ?= gcc
+CFLAGS ?= -Wall
 
-.c.o:
-	${CC} -c ${CFLAGS} $<
+
+
+
+
+%.o: %.c
+	@$(CC) -c $(CFLAGS) $<
 
 client: client.o
-	${CC} -o $@ $<
+	@$(CC) -o $@ $^
 
-server: server.o
-	${CC} -o $@ $<
+server: server.o 
+	@$(CC) -o $@ $^
+
+run: server
+	@echo "Running server..."
+
+	@./server
 
 clean:
-	rm -f client server ${OBJ}
+	rm -f client server $(OBJ)
 
-.PHONY: all clean
+.PHONY: all clean run

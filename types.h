@@ -3,6 +3,10 @@
 
 #define MAX_CLIENTS 30
 
+#define PORT 8080
+
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+
 typedef enum
 {
 	CONNECT,
@@ -21,7 +25,14 @@ typedef struct
 {
 	message_type type;
 	char message[1000];
-	char username[20];
+	char username[48];
 } message;
+
+typedef struct connectionInfo
+{
+	int socket;
+	struct sockaddr_in address;
+	char username[48];
+} connectionInfo;
 
 #endif // TYPES_H
